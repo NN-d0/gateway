@@ -4,14 +4,21 @@ server:
 spring:
   application:
     name: gateway
+
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
         username: nacos
         password: nacos
+
     gateway:
       routes:
+        - id: system-public-avatar-service
+          uri: lb://system
+          predicates:
+            - Path=/public/system/file/avatar/**
+
         - id: system-service
           uri: lb://system
           predicates:
